@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skuhlcke <skuhlcke@student.42.fr>          +#+  +:+       +#+        */
+/*   By: justlaw <justlaw@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 20:55:15 by justlaw           #+#    #+#             */
-/*   Updated: 2025/05/27 18:05:42 by skuhlcke         ###   ########.fr       */
+/*   Updated: 2025/05/30 19:10:38 by justlaw          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,6 @@ int	main(int ac, char *av[], char **envp)
 	forking_process(&fds, av, envp);
 	close(fds.fd_in);
 	close(fds.fd_out);
-	close(fds.pipefd[0]);
-	close(fds.pipefd[1]);
 	return (0);
 }
 
@@ -46,6 +44,8 @@ void	forking_process(t_fd_list *fds, char *av[], char **envp)
 	pid2 = fork();
 	if (pid2 == 0)
 		child2(fds, av, envp);
+	close(fds->pipefd[0]);
+	close(fds->pipefd[1]);
 	waitpid(pid1, NULL, 0);
 	waitpid(pid2, NULL, 0);
 }

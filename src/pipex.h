@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skuhlcke <skuhlcke@student.42.fr>          +#+  +:+       +#+        */
+/*   By: justlaw <justlaw@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 21:00:26 by justlaw           #+#    #+#             */
-/*   Updated: 2025/05/27 18:43:02 by skuhlcke         ###   ########.fr       */
+/*   Updated: 2025/05/30 18:59:05 by justlaw          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@
 # include <stdlib.h>
 # include <stdio.h>
 # include <fcntl.h>
+# include <sys/wait.h>
+
 
 typedef struct	s_fd_list
 {
@@ -44,8 +46,8 @@ void	print_error();
 
 //Helpers
 void	free_split(char **arr);
-char	*handle_slash_cmd(char *cmd);
-char	*search_path_dirs(char *cmd, char **envp);
-char *join_path(const char *dir, const char *cmd);
+char 	*join_path(const char *dir, const char *cmd);
+char	**parser(char av[]);
+char	*find_cmd_path(char *cmd, char **envp);
 
 #endif

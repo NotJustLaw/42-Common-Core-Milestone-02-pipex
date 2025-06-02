@@ -3,17 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   pipex_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skuhlcke <skuhlcke@student.42.fr>          +#+  +:+       +#+        */
+/*   By: justlaw <justlaw@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 20:55:17 by justlaw           #+#    #+#             */
-/*   Updated: 2025/05/27 18:41:01 by skuhlcke         ###   ########.fr       */
+/*   Updated: 2025/05/30 18:56:19 by justlaw          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"x
+#include "pipex.h"
 
 int error_handler(int ac, char *av[])
 {
+	(void)av;
 	if (ac != 5)
 	{
 		print_error();

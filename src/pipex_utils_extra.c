@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex_utils_extra.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skuhlcke <skuhlcke@student.42.fr>          +#+  +:+       +#+        */
+/*   By: justlaw <justlaw@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/27 17:46:06 by skuhlcke          #+#    #+#             */
-/*   Updated: 2025/05/27 18:38:12 by skuhlcke         ###   ########.fr       */
+/*   Updated: 2025/05/30 18:57:51 by justlaw          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,42 +23,35 @@ void	free_split(char **arr)
 	arr = NULL;
 }
 
-char	*find_cmd_path(char *cmd, char **envp)
-{
-	if (ft_strchr(cmd, '/'))
-		return handle_slash_cmd(cmd);
-	return search_path_dirs(cmd, envp);
-}
-
-char	*handle_slash_cmd(char *cmd)
+static char	*handle_slash_cmd(char *cmd)
 {
 	if (access(cmd, X_OK) == 0)
-		return ft_strdup(cmd);
+	return ft_strdup(cmd);
 	return NULL;
 }
 
-char	*search_path_dirs(char *cmd, char **envp)
+static char	*search_path_dirs(char *cmd, char **envp)
 {
 	char	*path;
 	char	**paths;
 	char	*cmd_path;
 	int		i;
-
+	
 	i = 0;
 	while (envp[i] && ft_strncmp(envp[i], "PATH=", 5))
-		i++;
+	i++;
 	if (!envp[i])
-		return NULL;
+	return NULL;
 	path = envp[i] + 5;
 	paths = ft_split(path, ':');
 	if (!paths)
-		return NULL;
+	return NULL;
 	i = -1;
 	while (paths[++i])
 	{
 		cmd_path = join_path(paths[i], cmd);
 		if (access(cmd_path, X_OK) == 0)
-			return (free_split(paths), cmd_path);
+		return (free_split(paths), cmd_path);
 		free(cmd_path);
 	}
 	free_split(paths);
@@ -69,11 +62,18 @@ char *join_path(const char *dir, const char *cmd)
 {
 	char	*tmp;
 	char	*full;
-
+	
 	tmp = ft_strjoin(dir, "/");
 	if (!tmp)
-		return NULL;
+	return NULL;
 	full = ft_strjoin(tmp, cmd);
 	free(tmp);
 	return full;
+}
+
+char	*find_cmd_path(char *cmd, char **envp)
+{
+	if (ft_strchr(cmd, '/'))
+		return handle_slash_cmd(cmd);
+	return search_path_dirs(cmd, envp);
 }
