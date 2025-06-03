@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex_utils_extra.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: justlaw <justlaw@student.42.fr>            +#+  +:+       +#+        */
+/*   By: skuhlcke <skuhlcke@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/27 17:46:06 by skuhlcke          #+#    #+#             */
-/*   Updated: 2025/05/30 18:57:51 by justlaw          ###   ########.fr       */
+/*   Updated: 2025/06/02 14:27:14 by skuhlcke         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	free_split(char **arr)
 static char	*handle_slash_cmd(char *cmd)
 {
 	if (access(cmd, X_OK) == 0)
-	return ft_strdup(cmd);
+		return ft_strdup(cmd);
 	return NULL;
 }
 
@@ -39,7 +39,7 @@ static char	*search_path_dirs(char *cmd, char **envp)
 	
 	i = 0;
 	while (envp[i] && ft_strncmp(envp[i], "PATH=", 5))
-	i++;
+		i++;
 	if (!envp[i])
 	return NULL;
 	path = envp[i] + 5;
@@ -51,7 +51,7 @@ static char	*search_path_dirs(char *cmd, char **envp)
 	{
 		cmd_path = join_path(paths[i], cmd);
 		if (access(cmd_path, X_OK) == 0)
-		return (free_split(paths), cmd_path);
+			return (free_split(paths), cmd_path);
 		free(cmd_path);
 	}
 	free_split(paths);
@@ -65,7 +65,7 @@ char *join_path(const char *dir, const char *cmd)
 	
 	tmp = ft_strjoin(dir, "/");
 	if (!tmp)
-	return NULL;
+		return NULL;
 	full = ft_strjoin(tmp, cmd);
 	free(tmp);
 	return full;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: justlaw <justlaw@student.42.fr>            +#+  +:+       +#+        */
+/*   By: skuhlcke <skuhlcke@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 21:00:26 by justlaw           #+#    #+#             */
-/*   Updated: 2025/05/30 18:59:05 by justlaw          ###   ########.fr       */
+/*   Updated: 2025/06/03 18:04:36 by skuhlcke         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define PIPEX_H
 
 # include "../libft/libft.h"
+# include "get_next_line_bonus.h"
 # include <unistd.h>
 # include <stdlib.h>
 # include <stdio.h>
@@ -29,6 +30,19 @@ typedef struct	s_fd_list
 	char	*cmd;
 	char	**envp;
 }		t_fd_list;
+
+typedef struct s_child_args
+{
+	int		here_fd;
+	int		*pipes;
+	int		num_cmds;
+	int		outfile_fd;
+	char	*cmd_str;
+	char	**envp;
+}		t_child_args;
+
+//Main functions
+void	handle_two_command_mode(int ac, char *av[], char **envp);
 
 //FD-s handlers
 int		fd_in_handler(char *av[]);
@@ -49,5 +63,21 @@ void	free_split(char **arr);
 char 	*join_path(const char *dir, const char *cmd);
 char	**parser(char av[]);
 char	*find_cmd_path(char *cmd, char **envp);
+
+//Bonus related
+void	handle_here_doc_mode(int ac, char *av[], char **envp);
+void	handle_multi_pipe_mode(int ac, char *av[], char **envp);
+
+//Child related
+void	first_child(int idx, t_child_args *args);
+void	i_child(int idx, t_child_args *args);
+void	last_child(int idx, t_child_args *args);
+
+//Handle Document utils
+void	read_ereadoc(int write_fd, const char *limiter);
+int		open_append_outfile(const char *filename);
+int		*create_pipes(int num_cmds);
+void	fork_and_dispatch(t_child_args *args, char **cmds);
+void	parent_cleanup(int here_read_fd, int outfile_fd, int *pipes, int num_cmds);
 
 #endif
