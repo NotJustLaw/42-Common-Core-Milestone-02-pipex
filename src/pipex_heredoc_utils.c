@@ -6,20 +6,23 @@
 /*   By: skuhlcke <skuhlcke@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/03 17:39:04 by skuhlcke          #+#    #+#             */
-/*   Updated: 2025/06/03 18:22:00 by skuhlcke         ###   ########.fr       */
+/*   Updated: 2025/06/04 12:16:04 by skuhlcke         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-void	read_ereadoc(int write_fd, const char *limiter)
+void read_ereadoc(int write_fd, const char *limiter)
 {
-	char	*line;
+	char *line;
+	size_t len ;
 
+	len = ft_strlen(limiter);
 	line = get_next_line(0);
 	while (line)
 	{
-		if (ft_strncmp(line, limiter, ft_strlen(limiter) + 1) == 0)
+		if (ft_strncmp(line, limiter, len) == 0
+			&& line[len] == '\n')
 		{
 			free(line);
 			break;
@@ -30,6 +33,7 @@ void	read_ereadoc(int write_fd, const char *limiter)
 	}
 	close(write_fd);
 }
+
 
 int	open_append_outfile(const char *filename)
 {
