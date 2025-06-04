@@ -6,7 +6,7 @@
 /*   By: skuhlcke <skuhlcke@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/27 17:46:06 by skuhlcke          #+#    #+#             */
-/*   Updated: 2025/06/02 14:27:14 by skuhlcke         ###   ########.fr       */
+/*   Updated: 2025/06/04 15:02:56 by skuhlcke         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,11 @@
 
 void	free_split(char **arr)
 {
-	int i = 0;
+	int	i;
+
+	i = 0;
 	if (!arr)
-		return;
+		return ;
 	while (arr[i])
 		free(arr[i++]);
 	free(arr);
@@ -26,8 +28,8 @@ void	free_split(char **arr)
 static char	*handle_slash_cmd(char *cmd)
 {
 	if (access(cmd, X_OK) == 0)
-		return ft_strdup(cmd);
-	return NULL;
+		return (ft_strdup(cmd));
+	return (NULL);
 }
 
 static char	*search_path_dirs(char *cmd, char **envp)
@@ -36,16 +38,16 @@ static char	*search_path_dirs(char *cmd, char **envp)
 	char	**paths;
 	char	*cmd_path;
 	int		i;
-	
+
 	i = 0;
 	while (envp[i] && ft_strncmp(envp[i], "PATH=", 5))
 		i++;
 	if (!envp[i])
-	return NULL;
+		return (NULL);
 	path = envp[i] + 5;
 	paths = ft_split(path, ':');
 	if (!paths)
-	return NULL;
+		return (NULL);
 	i = -1;
 	while (paths[++i])
 	{
@@ -55,25 +57,25 @@ static char	*search_path_dirs(char *cmd, char **envp)
 		free(cmd_path);
 	}
 	free_split(paths);
-	return NULL;
+	return (NULL);
 }
 
-char *join_path(const char *dir, const char *cmd)
+char	*join_path(const char *dir, const char *cmd)
 {
 	char	*tmp;
 	char	*full;
-	
+
 	tmp = ft_strjoin(dir, "/");
 	if (!tmp)
-		return NULL;
+		return (NULL);
 	full = ft_strjoin(tmp, cmd);
 	free(tmp);
-	return full;
+	return (full);
 }
 
 char	*find_cmd_path(char *cmd, char **envp)
 {
 	if (ft_strchr(cmd, '/'))
-		return handle_slash_cmd(cmd);
-	return search_path_dirs(cmd, envp);
+		return (handle_slash_cmd(cmd));
+	return (search_path_dirs(cmd, envp));
 }

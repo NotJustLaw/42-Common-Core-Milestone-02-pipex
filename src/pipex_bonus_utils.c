@@ -6,7 +6,7 @@
 /*   By: skuhlcke <skuhlcke@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/02 15:36:45 by skuhlcke          #+#    #+#             */
-/*   Updated: 2025/06/03 18:46:10 by skuhlcke         ###   ########.fr       */
+/*   Updated: 2025/06/04 15:03:38 by skuhlcke         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	first_child(int idx, t_child_args *args)
 	int		x;
 	char	**argv;
 	char	*path;
-	
+
 	(void)idx;
 	dup2(args->here_fd, STDIN_FILENO);
 	dup2(args->pipes[1], STDOUT_FILENO);
@@ -42,7 +42,7 @@ void	i_child(int idx, t_child_args *args)
 	int		x;
 	char	**argv;
 	char	*path;
-	
+
 	dup2(args->pipes[(idx - 1) * 2], STDIN_FILENO);
 	dup2(args->pipes[idx * 2 + 1], STDOUT_FILENO);
 	x = 0;
@@ -83,18 +83,3 @@ void	last_child(int idx, t_child_args *args)
 	perror("execve");
 	exit(127);
 }
-
-// int	error_handler_bonus(int ac, char *av[], int mode)
-// {
-// 	if (mode == 1)
-// 	{
-// 		if (ac <= 6)
-// 			return(ft_putstr_fd("Usage: ./pipex_bonus here_doc LIMITER cmd1 [cmd2 … cmdN] outfile\n", 2), 1);
-// 	}
-// 	else if(mode == 2)
-// 	{
-// 		if (ac <= 5)
-// 			return(ft_putstr_fd("Usage: ./pipex_bonus infile cmd1 [cmd2 … cmdN] outfile\n", 2), 1);
-// 	}
-// 	return (0);
-// }

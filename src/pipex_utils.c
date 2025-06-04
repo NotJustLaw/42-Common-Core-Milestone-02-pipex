@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   pipex_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: justlaw <justlaw@student.42.fr>            +#+  +:+       +#+        */
+/*   By: skuhlcke <skuhlcke@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 20:55:17 by justlaw           #+#    #+#             */
-/*   Updated: 2025/05/30 18:56:19 by justlaw          ###   ########.fr       */
+/*   Updated: 2025/06/04 15:00:24 by skuhlcke         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-int error_handler(int ac, char *av[])
+int	error_handler(int ac, char *av[])
 {
 	(void)av;
 	if (ac != 5)
@@ -23,7 +23,7 @@ int error_handler(int ac, char *av[])
 	return (0);
 }
 
-void	print_error()
+void	print_error(void)
 {
 	write(2, "Usage: ./pipex file1 cmd1 cmd2 file2\n", 37);
 }

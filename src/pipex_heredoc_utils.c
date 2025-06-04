@@ -6,16 +6,16 @@
 /*   By: skuhlcke <skuhlcke@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/03 17:39:04 by skuhlcke          #+#    #+#             */
-/*   Updated: 2025/06/04 12:16:04 by skuhlcke         ###   ########.fr       */
+/*   Updated: 2025/06/04 15:04:48 by skuhlcke         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-void read_ereadoc(int write_fd, const char *limiter)
+void	read_ereadoc(int write_fd, const char *limiter)
 {
-	char *line;
-	size_t len ;
+	char	*line;
+	size_t	len ;
 
 	len = ft_strlen(limiter);
 	line = get_next_line(0);
@@ -25,7 +25,7 @@ void read_ereadoc(int write_fd, const char *limiter)
 			&& line[len] == '\n')
 		{
 			free(line);
-			break;
+			break ;
 		}
 		write(write_fd, line, ft_strlen(line));
 		free(line);
@@ -33,7 +33,6 @@ void read_ereadoc(int write_fd, const char *limiter)
 	}
 	close(write_fd);
 }
-
 
 int	open_append_outfile(const char *filename)
 {
@@ -79,27 +78,28 @@ void	fork_and_dispatch(t_child_args *args, char **cmds)
 	i = 0;
 	while (i < args->num_cmds)
 	{
-	pid = fork();
-	if (pid < 0)
-	{
-		perror("fork error");
-		exit(1);
-	}
-	if (pid == 0)
-	{
-		args->cmd_str = cmds[i];
-		if (i == 0)
-			first_child(i, args);
-		else if (i == args->num_cmds - 1)
-			last_child(i, args);
-		else
-			i_child(i, args);
-	}
-	i++;
+		pid = fork();
+		if (pid < 0)
+		{
+			perror("fork error");
+			exit(1);
+		}
+		if (pid == 0)
+		{
+			args->cmd_str = cmds[i];
+			if (i == 0)
+				first_child(i, args);
+			else if (i == args->num_cmds - 1)
+				last_child(i, args);
+			else
+				i_child(i, args);
+		}
+		i++;
 	}
 }
 
-void	parent_cleanup(int here_read_fd, int outfile_fd, int *pipes, int num_cmds)
+void	parent_cleanup(int here_read_fd, int outfile_fd, \
+	int *pipes, int num_cmds)
 {
 	int	i;
 

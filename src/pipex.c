@@ -6,7 +6,7 @@
 /*   By: skuhlcke <skuhlcke@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 20:55:15 by justlaw           #+#    #+#             */
-/*   Updated: 2025/06/03 18:21:23 by skuhlcke         ###   ########.fr       */
+/*   Updated: 2025/06/04 14:58:03 by skuhlcke         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,8 @@ int	main(int ac, char *av[], char **envp)
 	{
 		if (ac < 6)
 		{
-			ft_putstr_fd("Usage: ./pipex here_doc LIMITER cmd1 [cmd2 ... cmdN] outfile\n", 2);
+			ft_putstr_fd("Usage: ./pipex here_doc LIMITER cmd1 \
+				[cmd2 ... cmdN] outfile\n", 2);
 			return (1);
 		}
 		handle_here_doc_mode(ac, av, envp);
@@ -65,9 +66,9 @@ void	handle_two_command_mode(int ac, char *av[], char **envp)
 
 void	forking_process(t_fd_list *fds, char *av[], char **envp)
 {
-	pid_t pid1;
-	pid_t pid2;
-	
+	pid_t	pid1;
+	pid_t	pid2;
+
 	pid1 = fork();
 	if (pid1 == 0)
 		child1(fds, av, envp);

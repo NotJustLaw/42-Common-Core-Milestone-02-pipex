@@ -6,7 +6,7 @@
 /*   By: skuhlcke <skuhlcke@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 21:00:26 by justlaw           #+#    #+#             */
-/*   Updated: 2025/06/03 18:04:36 by skuhlcke         ###   ########.fr       */
+/*   Updated: 2025/06/04 14:59:58 by skuhlcke         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,7 @@
 # include <fcntl.h>
 # include <sys/wait.h>
 
-
-typedef struct	s_fd_list
+typedef struct s_fd_list
 {
 	int		fd_in;
 	int		fd_out;
@@ -55,12 +54,12 @@ void	child1(t_fd_list *fds, char *av[], char **envp);
 void	child2(t_fd_list *fds, char *av[], char **envp);
 
 //Error handlers
-int 	error_handler(int ac, char *av[]);
-void	print_error();
+int		error_handler(int ac, char *av[]);
+void	print_error(void);
 
 //Helpers
 void	free_split(char **arr);
-char 	*join_path(const char *dir, const char *cmd);
+char	*join_path(const char *dir, const char *cmd);
 char	**parser(char av[]);
 char	*find_cmd_path(char *cmd, char **envp);
 
@@ -78,6 +77,7 @@ void	read_ereadoc(int write_fd, const char *limiter);
 int		open_append_outfile(const char *filename);
 int		*create_pipes(int num_cmds);
 void	fork_and_dispatch(t_child_args *args, char **cmds);
-void	parent_cleanup(int here_read_fd, int outfile_fd, int *pipes, int num_cmds);
+void	parent_cleanup(int here_read_fd, int outfile_fd, \
+			int *pipes, int num_cmds);
 
 #endif
