@@ -6,7 +6,7 @@
 /*   By: skuhlcke <skuhlcke@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/03 17:39:04 by skuhlcke          #+#    #+#             */
-/*   Updated: 2025/06/04 15:04:48 by skuhlcke         ###   ########.fr       */
+/*   Updated: 2025/06/05 17:06:49 by skuhlcke         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,10 +40,7 @@ int	open_append_outfile(const char *filename)
 
 	fd = open(filename, O_WRONLY | O_CREAT | O_APPEND, 0644);
 	if (fd < 0)
-	{
-		perror("open outfile");
-		exit(1);
-	}
+		return (-1);
 	return (fd);
 }
 
@@ -56,7 +53,10 @@ int	*create_pipes(int num_cmds)
 	count = num_cmds - 1;
 	arr = malloc(sizeof(int) * count * 2);
 	if (!arr)
+	{
+		free(arr);
 		exit(1);
+	}
 	i = 0;
 	while (i < count)
 	{

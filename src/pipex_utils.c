@@ -6,7 +6,7 @@
 /*   By: skuhlcke <skuhlcke@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 20:55:17 by justlaw           #+#    #+#             */
-/*   Updated: 2025/06/04 15:00:24 by skuhlcke         ###   ########.fr       */
+/*   Updated: 2025/06/05 16:51:09 by skuhlcke         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,11 +48,13 @@ void	child1(t_fd_list *fds, char *av[], char **envp)
 	}
 	cmd_path = find_cmd_path(args[0], envp);
 	if (!cmd_path)
+	{
+		free_split(args);
 		exit(127);
+	}
 	execve(cmd_path, args, envp);
 	perror("execve failed");
-	free_split(args);
-	exit(1);
+	free_split_and_exit(args, 1);
 }
 
 void	child2(t_fd_list *fds, char *av[], char **envp)
@@ -75,11 +77,13 @@ void	child2(t_fd_list *fds, char *av[], char **envp)
 	}
 	cmd_path = find_cmd_path(args[0], envp);
 	if (!cmd_path)
+	{
+		free_split(args);
 		exit(127);
+	}
 	execve(cmd_path, args, envp);
 	perror("execve failed");
-	free_split(args);
-	exit(1);
+	free_split_and_exit(args, 1);
 }
 
 char	**parser(char av[])

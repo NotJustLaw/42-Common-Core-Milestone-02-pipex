@@ -6,7 +6,7 @@
 /*   By: skuhlcke <skuhlcke@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 20:55:15 by justlaw           #+#    #+#             */
-/*   Updated: 2025/06/04 14:58:03 by skuhlcke         ###   ########.fr       */
+/*   Updated: 2025/06/04 18:33:38 by skuhlcke         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ void	handle_two_command_mode(int ac, char *av[], char **envp)
 	if (fds.fd_out < 0)
 	{
 		perror("open outfile error");
+		close(fds.fd_in);
 		exit(1);
 	}
 	if (pipe_generator(fds.pipefd))

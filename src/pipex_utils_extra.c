@@ -6,7 +6,7 @@
 /*   By: skuhlcke <skuhlcke@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/27 17:46:06 by skuhlcke          #+#    #+#             */
-/*   Updated: 2025/06/04 15:02:56 by skuhlcke         ###   ########.fr       */
+/*   Updated: 2025/06/05 16:53:32 by skuhlcke         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ static char	*search_path_dirs(char *cmd, char **envp)
 		free(cmd_path);
 	}
 	free_split(paths);
-	return (NULL);
+	return (perror("Not a valid command"), NULL);
 }
 
 char	*join_path(const char *dir, const char *cmd)

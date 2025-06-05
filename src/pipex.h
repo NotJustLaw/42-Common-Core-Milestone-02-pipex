@@ -6,7 +6,7 @@
 /*   By: skuhlcke <skuhlcke@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 21:00:26 by justlaw           #+#    #+#             */
-/*   Updated: 2025/06/04 14:59:58 by skuhlcke         ###   ########.fr       */
+/*   Updated: 2025/06/05 17:06:36 by skuhlcke         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,8 +59,10 @@ void	print_error(void);
 
 //Helpers
 void	free_split(char **arr);
+void	free_split_and_exit(char **arr, int exit_code);
 char	*join_path(const char *dir, const char *cmd);
 char	**parser(char av[]);
+char	**intelligent_parser(char av[], t_child_args *args);
 char	*find_cmd_path(char *cmd, char **envp);
 
 //Bonus related
